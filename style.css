@@ -1,5 +1,3 @@
-
-
 html {
   box-sizing: border-box;
 }
@@ -10,7 +8,6 @@ body {
   overflow-y: hidden;
   display: flex;
   align-items: center;
-
 }
 
 /* Video Background */
@@ -18,7 +15,9 @@ body {
   position: fixed;
   right: 0;
   bottom: 0;
-
+  width: 100vw;
+  height: auto;
+  object-fit: cover;
 }
 
 video {
@@ -32,7 +31,9 @@ video {
   position: fixed;
   left: 0;
   top: 0;
-
+  height: 100vh;
+  width: 100vw;
+  background: rgba(255, 255, 255, 0.35);
 }
 
 /* Container */
@@ -46,7 +47,6 @@ video {
   z-index: 2;
   display: flex;
   justify-content: center;
-
 }
 
 .input-container {
@@ -79,7 +79,6 @@ input {
   border-radius: 20px;
   background: #fff;
   outline: none;
-
 }
 
 /* Button */
@@ -96,15 +95,12 @@ button {
   outline: none;
 }
 
-
-
 /* Countdown */
 ul {
   margin-left: -45px;
 }
 
 li {
-
   font-size: 30px;
   list-style-type: none;
   padding: 10px;
@@ -123,20 +119,22 @@ li span {
   top: 60px;
 }
 
-
 /* Media Query: Large Smartphone (Vertical) */
-@media screen and (max-width: 600px) {
-  .video-background {
-
-  }
-  
+@media screen and (max-width: 750px) {
   video {
-
+    object-fit: cover;
+    object-position: 25%;
     margin-top: -1px;
   }
 
-  .container {
+  .video-background {
+    height: 100vh;
+    width: 100vw;
+  }
 
+  .container {
+    min-width: unset;
+    width: 95vw;
     min-height: 245px;
     padding: 20px;
     margin: 10px;
