@@ -1,7 +1,7 @@
 html {
   box-sizing: border-box;
   font-family: Oswald, Helvetica, Arial, sans-serif;
-  letter-spacing: 1.4;
+  letter-spacing: 1px;
 }
 
 body {
@@ -101,6 +101,8 @@ input {
   background: #fff;
   outline: none;
   font-family: Oswald, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
 }
 
 /* Button */
