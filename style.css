@@ -29,10 +29,10 @@ video {
   transform: translate(-50%, -50%);
 }
 .navbar {
-  padding: 10px 50px;
+  padding: 10px 0px;
   background-color: rgba(82, 115, 167, 0.7);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   color: white;
   font-size: 30px;
   box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.25);
@@ -54,14 +54,31 @@ a:hover {
   color: black;
   text-decoration: none;
   cursor: pointer;
+  transition: ease-in 0.3s;
+  transform: scale(1.05);
 }
 
 /* Container */
-.container {
+#container {
   min-width: 580px;
   min-height: 304px;
+
   color: black;
   margin: 0 auto;
+  padding: 25px 50px;
+  border-radius: 10px;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  border: solid black 2px;
+}
+.single-container {
+  min-width: 580px;
+  min-height: 304px;
+  min-width: 400px;
+  min-height: 245px;
+  color: black;
+  margin: 10px;
   padding: 25px 50px;
   border-radius: 10px;
   z-index: 2;
@@ -73,6 +90,17 @@ a:hover {
 .input-container {
   position: relative;
   top: 20px;
+}
+
+#add-button {
+  color: white;
+  font-size: 30px;
+}
+#add-button:hover {
+  color: black;
+  cursor: pointer;
+  transition: ease-in 0.3s;
+  transform: scale(1.05);
 }
 
 h1 {
@@ -117,6 +145,7 @@ button {
   color: white;
   cursor: pointer;
   outline: none;
+  padding: 10px;
 }
 button:hover {
   transform: translateY(-3px);
@@ -199,7 +228,14 @@ li span {
   .navbar {
     padding: 10px 20px;
   }
-  .container {
+  .nav-left {
+    display: flex;
+    width: 375px;
+    justify-content: space-between;
+    padding: 0px;
+    border: solid black;
+  }
+  .single-container {
     min-width: unset;
     width: 95vw;
     min-height: 245px;
