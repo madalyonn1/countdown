@@ -196,7 +196,9 @@ li span {
     height: 100vh;
     width: 100vw;
   }
-
+  .navbar {
+    padding: 10px 20px;
+  }
   .container {
     min-width: unset;
     width: 95vw;
@@ -223,14 +225,23 @@ li span {
   }
 
   h1 {
-    font-size: 20px;
+    font-size: 30px;
   }
 
   li {
-    font-size: 15px;
+    font-size: 18px;
   }
 
   li span {
     font-size: 40px;
+  }
+}
+@media screen and (max-width: 350px) {
+  .navbar {
+    font-size: 20px;
+  }
+  li {
+    font-size: 14px;
+    padding: 8px;
   }
 }
