@@ -12,19 +12,13 @@ const completeElInfo = document.getElementById('complete-info');
 const completeBtn = document.getElementById('complete-button');
 const addBtn = document.getElementById('add-button');
 const container = document.getElementById('container');
-console.log(addBtn, container);
 
 let countdownTitle = '';
 let countdownDate = '';
 let countdownValue = Date;
 let countdownActive;
 let savedCountdown;
-let savedCountdownArr = [
-  (savedCountdown = {
-    title: countdownTitle,
-    date: countdownDate,
-  }),
-];
+let savedCountdownArr = [];
 
 const second = 1000;
 const minute = second * 60;
@@ -37,9 +31,9 @@ const timeHereIso = new Date().toISOString().split('2020');
 const today = new Date().toISOString().split('T')[0];
 dateEl.setAttribute('min', today);
 
-console.log(today, 'and');
-console.log(typeof timeHere);
-console.log(new Date().toISOString());
+// console.log(today, 'and');
+// console.log(typeof timeHere);
+// console.log(new Date().toISOString());
 
 // Populate Countdown / Complete UI
 const updateDOM = () => {
@@ -53,10 +47,10 @@ const updateDOM = () => {
     // Hide Input
     inputContainer.hidden = true;
     // If the countdown has ended, show final state
-    if (distance < 0) {
+    if (20 < 0) {
       countdownEl.hidden = true;
       clearInterval(countdownActive);
-      completeElInfo.textContent = `${countdownTitle} finished on ${countdownDate}`;
+      completeElInfo.textContent = `${[0].countdownTitle} finished on ${[0].countdownDate}`;
       completeEl.hidden = false;
     } else {
       // else, show the countdown in progress
@@ -73,6 +67,7 @@ const updateDOM = () => {
 
 const updateCountdown = (e) => {
   e.preventDefault();
+  console.log(savedCountdownArr, 'is crurently empty');
   // Set title and date, save to localStorage
   countdownTitle = e.srcElement[0].value;
   countdownDate = e.srcElement[1].value;
@@ -80,7 +75,9 @@ const updateCountdown = (e) => {
     title: countdownTitle,
     date: countdownDate,
   };
+  console.log(savedCountdown.title);
   savedCountdownArr.push(savedCountdown);
+  console.log(JSON.stringify(savedCountdownArr));
   localStorage.setItem('countdown', JSON.stringify(savedCountdownArr));
   // Check if no date entered
   if (countdownDate === '') {
@@ -88,6 +85,7 @@ const updateCountdown = (e) => {
   } else {
     // Get number version of current Date, updateDOM
     countdownValue = new Date(countdownDate).getTime();
+    restorePreviousCountdown();
     updateDOM();
   }
 };
@@ -107,21 +105,47 @@ const reset = () => {
 const restorePreviousCountdown = () => {
   // Get countdown from localStorage if available
   if (localStorage.getItem('countdown')) {
+    console.log('yes');
+    savedCountdownArr = JSON.parse(localStorage.getItem('countdown'));
     inputContainer.hidden = true;
-    savedCountdown = JSON.parse(localStorage.getItem('countdown'));
-    countdownTitle = savedCountdown.title;
-    countdownDate = savedCountdown.date;
-    countdownValue = new Date(countdownDate).getTime();
-    updateDOM();
+    console.log(savedCountdownArr, 'this is the arr');
+    savedCountdownArr.forEach((countdown) => {
+      const { title, date } = countdown;
+      countdownTitle = title;
+      countdownDate = date;
+      countdownValue = new Date(countdownDate).getTime();
+      updateDOM();
+    });
+    // countdownTitle = savedCountdown[0].title;
+    // countdownDate = savedCountdown[0].date;
+    // countdownValue = new Date(countdownDate).getTime();
+    // updateDOM();
   }
+};
+const displayCountdown = (countdownTitle, countdownDate, countdownValue) => {
+  const countdownElement = document.createElement('div');
+  countdownElement.classList.add('countdown');
+  countdownFormElement.insertAdjacentHTML(
+    'beforeend',
+    `<div class="countdown" id="countdown" hidden >
+    <h1 id="countdown-title">${countdownTitle}</h1>
+    <ul>
+        <li><span></span>Days</li>
+        <li><span></span>Hours</li>
+        <li><span></span>Minutes</li>
+        <li><span></span>Seconds</li>
+    </ul>
+    <button id="countdown-button">RESET</button>
+</div>`
+  );
 };
 
 const addCountdown = () => {
-  const countdownElement = document.createElement('div');
-  countdownElement.classList.add('single-container');
-  countdownElement.classList.add('input-containerr');
-  container.appendChild(countdownElement);
-  countdownElement.insertAdjacentHTML(
+  const countdownFormElement = document.createElement('div');
+  countdownFormElement.classList.add('single-container');
+  countdownFormElement.classList.add('input-containerr');
+  container.appendChild(countdownFormElement);
+  countdownFormElement.insertAdjacentHTML(
     'beforeend',
     `  <div class="input-container" id="input-container">
   <h1>Create a Custom Countdown!</h1>       
@@ -135,6 +159,21 @@ const addCountdown = () => {
 </div>`
   );
 };
+// console.log(SavedCountdown);
+console.log(savedCountdownArr, 'is crurently empty');
+savedCountdownArr.push(
+  (savedCountdown = {
+    title: 'arianna',
+    date: 22,
+  })
+);
+savedCountdownArr.push(
+  (savedCountdown = {
+    title: 'den',
+    date: 2,
+  })
+);
+console.log(JSON.stringify(savedCountdownArr));
 
 // Event Listener
 countdownForm.addEventListener('submit', updateCountdown);
@@ -143,4 +182,5 @@ completeBtn.addEventListener('click', reset);
 addBtn.addEventListener('click', addCountdown);
 
 // On Load, check localStorage
+localStorage.setItem('countdown', JSON.stringify(savedCountdownArr));
 restorePreviousCountdown();
