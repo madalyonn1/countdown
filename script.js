@@ -13,6 +13,22 @@ const completeBtn = document.getElementById('complete-button');
 const addBtn = document.getElementById('add-button');
 const container = document.getElementById('container');
 
+const modal = document.getElementById('modal');
+const modalShow = document.getElementById('show-modal');
+const modalClose = document.getElementById('close-modal');
+
+let bookmarks = [];
+
+// Show Modal, Focus on Input
+function showModal() {
+  modal.classList.add('show-modal');
+}
+
+// Modal Event Listeners
+modalShow.addEventListener('click', showModal);
+modalClose.addEventListener('click', () => modal.classList.remove('show-modal'));
+window.addEventListener('click', (e) => (e.target === modal ? modal.classList.remove('show-modal') : false));
+
 let countdownTitle = '';
 let countdownDate = '';
 let countdownValue = Date;
