@@ -17,6 +17,11 @@ const modal = document.getElementById('modal');
 const modalShow = document.getElementById('show-modal');
 const modalClose = document.getElementById('close-modal');
 
+const suggestedListNodeList = document.getElementsByClassName('suggested-list-li');
+for (let i = 0; i < suggestedListNodeList.length; i++) {
+  suggestedListNodeList[i].addEventListener('click', (e) => console.log(suggestedList[e.target.innerHTML]));
+}
+
 const suggestedList = {
   'Presidential Election': 1604361600000,
   Christmas: 1608854400000,
@@ -73,7 +78,7 @@ const updateDOM = () => {
     // Hide Input
     inputContainer.hidden = true;
     // If the countdown has ended, show final state
-    if (20 < 0) {
+    if (distance < 0) {
       countdownEl.hidden = true;
       clearInterval(countdownActive);
       completeElInfo.textContent = `${[0].countdownTitle} finished on ${[0].countdownDate}`;
@@ -117,13 +122,10 @@ const updateCountdown = (e) => {
 };
 
 const reset = () => {
-  // Hide countdowns, show input form
   countdownEl.hidden = true;
   completeEl.hidden = true;
   inputContainer.hidden = false;
-  // Stop the countdown
   clearInterval(countdownActive);
-  // Reset values, remove localStorage item
   countdownTitle = '';
   countdownDate = '';
   localStorage.removeItem('countdown');
@@ -142,10 +144,6 @@ const restorePreviousCountdown = () => {
       countdownValue = new Date(countdownDate).getTime();
       updateDOM();
     });
-    // countdownTitle = savedCountdown[0].title;
-    // countdownDate = savedCountdown[0].date;
-    // countdownValue = new Date(countdownDate).getTime();
-    // updateDOM();
   }
 };
 const displayCountdown = (countdownTitle, countdownDate, countdownValue) => {
