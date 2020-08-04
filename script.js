@@ -182,5 +182,5 @@ completeBtn.addEventListener('click', reset);
 addBtn.addEventListener('click', addCountdown);
 
 // On Load, check localStorage
-localStorage.setItem('countdown', JSON.stringify(savedCountdownArr));
+// localStorage.setItem('countdown', JSON.stringify(savedCountdownArr));
 restorePreviousCountdown();
