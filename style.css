@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Karla&display=swap');
 html {
   box-sizing: border-box;
   font-family: Oswald, Helvetica, Arial, sans-serif;
@@ -70,7 +71,7 @@ a:hover {
   z-index: 2;
   display: flex;
   justify-content: center;
-  border: solid black 2px;
+  /* border: solid black 2px; */
 }
 .single-container {
   min-width: 580px;
@@ -92,11 +93,11 @@ a:hover {
   top: 20px;
 }
 
-#add-button {
+.add-button {
   color: white;
   font-size: 30px;
 }
-#add-button:hover {
+.add-button:hover {
   color: black;
   cursor: pointer;
   transition: ease-in 0.3s;
@@ -108,6 +109,81 @@ h1 {
   text-align: center;
   margin-top: 0;
   margin-bottom: 10px;
+}
+/* Modal */
+.modal-container {
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.show-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.modal {
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  max-width: 95%;
+  width: 500px;
+  animation: modalopen 1s;
+}
+
+@keyframes modalopen {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.close-icon {
+  float: right;
+  color: white;
+  font-size: 24px;
+  position: relative;
+  top: 13px;
+  right: 13px;
+  cursor: pointer;
+}
+
+.modal-header {
+  background-color: rgb(82, 115, 167);
+  color: white;
+  padding: 5px;
+}
+
+h3 {
+  margin: 5px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.modal-content {
+  padding: 20px;
+  background: whitesmoke;
+}
+.suggested-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0;
+}
+.suggested-list-li {
+  font-size: 20px;
+}
+.suggested-list-li:hover {
+  color: blue;
+  cursor: pointer;
 }
 
 /* Form */
@@ -138,7 +214,7 @@ button {
   width: 100%;
   height: 40px;
   border-radius: 7px;
-  margin-top: 15px;
+  margin: 15px 0px;
   border: none;
   text-transform: uppercase;
   background: rgb(82, 115, 167);
@@ -233,7 +309,6 @@ li span {
     width: 375px;
     justify-content: space-between;
     padding: 0px;
-    border: solid black;
   }
   .single-container {
     min-width: unset;
