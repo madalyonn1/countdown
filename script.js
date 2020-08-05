@@ -19,7 +19,14 @@ const modalClose = document.getElementById('close-modal');
 
 const suggestedListNodeList = document.getElementsByClassName('suggested-list-li');
 for (let i = 0; i < suggestedListNodeList.length; i++) {
-  suggestedListNodeList[i].addEventListener('click', (e) => console.log(suggestedList[e.target.innerHTML]));
+  suggestedListNodeList[i].addEventListener('click', (e) => {
+    modal.classList.remove('show-modal');
+    let value = e.target.innerHTML;
+    console.log(value);
+    console.log(suggestedList[value]);
+    updateCountdown(value, suggestedList[value]);
+  });
+  // console.log(suggestedList[e.target.innerHTML]));
 }
 
 const suggestedList = {
@@ -34,7 +41,6 @@ const suggestedList = {
   'Black Friday': 1606435200000,
   "New Year's Eve": 1609372800000,
 };
-console.log(suggestedList);
 
 // Show Modal, Focus on Input
 function showModal() {
@@ -81,7 +87,7 @@ const updateDOM = () => {
     if (distance < 0) {
       countdownEl.hidden = true;
       clearInterval(countdownActive);
-      completeElInfo.textContent = `${[0].countdownTitle} finished on ${[0].countdownDate}`;
+      completeElInfo.textContent = `${countdownTitle} finished on ${countdownDate}`;
       completeEl.hidden = false;
     } else {
       // else, show the countdown in progress
@@ -96,27 +102,28 @@ const updateDOM = () => {
   }, second);
 };
 
-const updateCountdown = (e) => {
-  e.preventDefault();
-  console.log(savedCountdownArr, 'is crurently empty');
-  // Set title and date, save to localStorage
-  countdownTitle = e.srcElement[0].value;
-  countdownDate = e.srcElement[1].value;
+const updateCountdown = (e = undefined, suggestedTitle, suggestedValue) => {
+  if (typeof e === 'object') {
+    e.preventDefault();
+    countdownTitle = e.srcElement[0].value;
+    countdownDate = e.srcElement[1].value;
+  } else {
+    // Set title and date, save to localStorage
+    countdownTitle = e;
+    countdownDate = suggestedTitle;
+  }
   savedCountdown = {
     title: countdownTitle,
     date: countdownDate,
   };
-  console.log(savedCountdown.title);
-  savedCountdownArr.push(savedCountdown);
-  console.log(JSON.stringify(savedCountdownArr));
-  localStorage.setItem('countdown', JSON.stringify(savedCountdownArr));
+
+  localStorage.setItem('countdown', JSON.stringify(savedCountdown));
   // Check if no date entered
   if (countdownDate === '') {
     alert('Please select a date for the countdown.');
   } else {
     // Get number version of current Date, updateDOM
     countdownValue = new Date(countdownDate).getTime();
-    restorePreviousCountdown();
     updateDOM();
   }
 };
@@ -130,20 +137,17 @@ const reset = () => {
   countdownDate = '';
   localStorage.removeItem('countdown');
 };
+
 const restorePreviousCountdown = () => {
   // Get countdown from localStorage if available
   if (localStorage.getItem('countdown')) {
-    console.log('yes');
-    savedCountdownArr = JSON.parse(localStorage.getItem('countdown'));
+    countdown = JSON.parse(localStorage.getItem('countdown'));
     inputContainer.hidden = true;
-    console.log(savedCountdownArr, 'this is the arr');
-    savedCountdownArr.forEach((countdown) => {
-      const { title, date } = countdown;
-      countdownTitle = title;
-      countdownDate = date;
-      countdownValue = new Date(countdownDate).getTime();
-      updateDOM();
-    });
+    const { title, date } = countdown;
+    countdownTitle = title;
+    countdownDate = date;
+    countdownValue = new Date(countdownDate).getTime();
+    updateDOM();
   }
 };
 const displayCountdown = (countdownTitle, countdownDate, countdownValue) => {
@@ -183,21 +187,6 @@ const addCountdown = () => {
       </div>`
   );
 };
-// console.log(SavedCountdown);
-console.log(savedCountdownArr, 'is crurently empty');
-savedCountdownArr.push(
-  (savedCountdown = {
-    title: 'arianna',
-    date: 22,
-  })
-);
-savedCountdownArr.push(
-  (savedCountdown = {
-    title: 'den',
-    date: 2,
-  })
-);
-console.log(JSON.stringify(savedCountdownArr));
 
 // Event Listener
 countdownForm.addEventListener('submit', updateCountdown);
@@ -206,5 +195,14 @@ completeBtn.addEventListener('click', reset);
 addBtn.addEventListener('click', addCountdown);
 
 // On Load, check localStorage
-// localStorage.setItem('countdown', JSON.stringify(savedCountdownArr));
 restorePreviousCountdown();
+
+// savedCountdownArr.forEach((countdown) => {
+//   const { title, date } = countdown;
+//   countdownTitle = title;
+//   countdownDate = date;
+//   countdownValue = new Date(countdownDate).getTime();
+//   updateDOM();
+// });
+
+// localStorage.setItem('countdown', JSON.stringify(savedCountdownArr));

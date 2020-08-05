@@ -71,7 +71,7 @@ a:hover {
   z-index: 2;
   display: flex;
   justify-content: center;
-  border: solid black 2px;
+  /* border: solid black 2px; */
 }
 .single-container {
   min-width: 580px;
@@ -214,7 +214,7 @@ button {
   width: 100%;
   height: 40px;
   border-radius: 7px;
-  margin-top: 15px;
+  margin: 15px 0px;
   border: none;
   text-transform: uppercase;
   background: rgb(82, 115, 167);
@@ -309,7 +309,6 @@ li span {
     width: 375px;
     justify-content: space-between;
     padding: 0px;
-    border: solid black;
   }
   .single-container {
     min-width: unset;
