@@ -22,11 +22,11 @@ for (let i = 0; i < suggestedListNodeList.length; i++) {
   suggestedListNodeList[i].addEventListener('click', (e) => {
     modal.classList.remove('show-modal');
     let value = e.target.innerHTML;
-    console.log(value);
-    console.log(suggestedList[value]);
+    localStorage.removeItem('countdown');
+    countdownTitle = '';
+    countdownDate = '';
     updateCountdown(value, suggestedList[value]);
   });
-  // console.log(suggestedList[e.target.innerHTML]));
 }
 
 const suggestedList = {
@@ -66,10 +66,9 @@ const day = hour * 24;
 
 // Set Date Input Min & Value with Today's Date
 const timeHere = new Date();
-const timeHereIso = new Date().toISOString().split('2020');
+const timeHereISO = new Date().toISOString().split('2020');
 const today = new Date().toISOString().split('T')[0];
 console.log('today is', today);
-// console.log('now is ', now);
 dateEl.setAttribute('min', today);
 
 // Populate Countdown / Complete UI
@@ -129,12 +128,14 @@ const updateCountdown = (e = undefined, suggestedTitle, suggestedValue) => {
 };
 
 const reset = () => {
+  console.log(savedCountdown, countdownValue, countdownTitle, countdown);
   countdownEl.hidden = true;
   completeEl.hidden = true;
   inputContainer.hidden = false;
   clearInterval(countdownActive);
   countdownTitle = '';
   countdownDate = '';
+  countdownValue = '';
   localStorage.removeItem('countdown');
 };
 
@@ -188,21 +189,11 @@ const addCountdown = () => {
   );
 };
 
-// Event Listener
+// Event Listeners
 countdownForm.addEventListener('submit', updateCountdown);
 countdownBtn.addEventListener('click', reset);
 completeBtn.addEventListener('click', reset);
-addBtn.addEventListener('click', addCountdown);
+// addBtn.addEventListener('click', addCountdown);
 
 // On Load, check localStorage
 restorePreviousCountdown();
-
-// savedCountdownArr.forEach((countdown) => {
-//   const { title, date } = countdown;
-//   countdownTitle = title;
-//   countdownDate = date;
-//   countdownValue = new Date(countdownDate).getTime();
-//   updateDOM();
-// });
-
-// localStorage.setItem('countdown', JSON.stringify(savedCountdownArr));
