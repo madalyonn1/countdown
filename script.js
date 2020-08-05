@@ -10,7 +10,7 @@ const timeElements = document.querySelectorAll('span');
 const completeEl = document.getElementById('complete');
 const completeElInfo = document.getElementById('complete-info');
 const completeBtn = document.getElementById('complete-button');
-const addBtn = document.getElementById('add-button');
+// const addBtn = document.getElementById('add-button');
 const container = document.getElementById('container');
 
 const modal = document.getElementById('modal');
@@ -136,6 +136,9 @@ const reset = () => {
   countdownTitle = '';
   countdownDate = '';
   countdownValue = '';
+  savedCountdown = '';
+  countdown = '';
+  console.log(savedCountdown, countdownValue, countdownTitle, countdown);
   localStorage.removeItem('countdown');
 };
 
